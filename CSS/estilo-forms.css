@@ -1,0 +1,51 @@
+
+.form-solicitacao{
+    background-color: white;
+    height: 550px;
+    width: 500px;
+    border-radius: 15px;
+    margin-top: 8vh;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.form-solicitacao input:focus{
+    box-shadow: none;
+    border: none;
+    border-bottom: solid 1px;
+    border-color: #4dc3ff;
+}
+
+.form-solicitacao input:hover{
+    border-color: #4dc3ff;
+}
+
+.form-solicitacao textarea:focus{
+    box-shadow: none;
+    border: none;
+    border-bottom: solid 2px;
+    border-color: #4dc3ff;
+}
+
+.form-solicitacao textarea:hover{
+    border-color: #4dc3ff;
+}
+
+.form-solicitacao select:focus{
+    box-shadow: none;
+}
+
+.form-solicitacao h2{
+    padding-top: 10px;
+    text-align: center;
+}
+
+.corpo-form-solicitacao{
+    padding-top: 10px;
+    margin: 20px;
+}
+
+.footer-form{
+    margin-top: 30px;
+    justify-content: center;
+}
