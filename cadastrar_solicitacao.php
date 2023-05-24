@@ -12,7 +12,7 @@
     $data_solicitacao = date('Y/m/d H:i:s');
     
 
-    $result = $conn->query("INSERT INTO atendimentos VALUES('','$solicitante','$cpf','$email','$anydesk','$tp_servico','$tp_cliente','$descricao','', '$data_solicitacao', '', '')");
+    $result = $conn->query("INSERT INTO atendimentos (solicitante, cpf, email, id_anydesk, tp_servico, tp_cliente, detalhes_demanda, data_solicitacao)VALUES('$solicitante','$cpf','$email','$anydesk','$tp_servico','$tp_cliente','$descricao', '$data_solicitacao')");
     
 
     if($result == true){

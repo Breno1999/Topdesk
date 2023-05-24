@@ -19,19 +19,23 @@
                             <a class='nav-link' href='pag_atendimentos.php'>Atendimentos <span class='sr-only'>(current)</span></a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='#'>Inventário de máquina</a>
+                            <a class='nav-link' href='pag_inventarios.php'>Inventário de máquina</a>
                         </li>
                         <li class='nav-item dropdown'>
                             <a class='nav-link dropdown-toggle' href='#' id='dropdownId' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Administração</a>
                             <div class='dropdown-menu' aria-labelledby='dropdownId'>
                                 <h6 class='dropdown-header'>Usuários</h6>
-                                <a class='dropdown-item' href='#'>Listar usuários</a>
-                                <a class='dropdown-item' href='#'>Cadastrar usuário</a>
-                                <a class='dropdown-item' href='#'>Editar usuário</a>
-                                <a class='dropdown-item' href='#'>Deletar usuário</a>
+                                <a class='dropdown-item' href='pag_listar_usuario.php'>Listar usuários</a>
+                                <a class='dropdown-item' data-toggle='modal' data-target='#modalCadastrar'>Cadastrar usuário</a>
+                                <a class='dropdown-item' data-toggle='modal' data-target='#modalEditarUser'>Editar usuário</a>
+                                <a class='dropdown-item' data-toggle='modal' data-target='#modalDesativar'>Ativar/Desativar acesso</a>
+                                <a class='dropdown-item' data-toggle='modal' data-target='#modalDeletar'>Deletar usuário</a>
                                 <h6 class='dropdown-header'>Atendimento</h6>
-                                <a class='dropdown-item' href='pag_atendimentos_adm.php'>Inspencionar atendimentos</a>
+                                <a class='dropdown-item' href='pag_atendimentos_adm.php'>Inspecionar atendimentos</a>
                             </div>
+                        </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='pag_listar_gestor.php'>Gestores</a>
                         </li>
 
                     </ul>
@@ -66,40 +70,253 @@
 
         </header>
 
-        <!-- Modal alterar todos dados -->
-        <div class='modal fade' id='modalEditar' tabindex='-1' role='dialog' aria-labelledby='TituloModalCentralizado' aria-hidden='true'>
+
+
+        <div class='modal fade' id='modalCadastrar' tabindex='-1' role='dialog' aria-labelledby='TituloModalCentralizado' aria-hidden='true'>
         <div class='modal-dialog modal-dialog-centered' role='document'>
             <div class='modal-content'>
-            <div class='modal-header'>
-                <h5 class='modal-title' id='TituloModalCentralizado'>Alterar meus dados</h5>
-                <button type='button' class='close' data-dismiss='modal' aria-label='Fechar'>
-                <span aria-hidden='true'>&times;</span>
-                </button>
-            </div>
             <div class='modal-body'>
-            <form >
-                <div class='form-group'>
-                    <label for='exampleInputEmail1'>Nome</label>
-                    <input type='text' class='form-control' id='Nome' placeholder='Nome completo'>
-
-                    <label for='Email sm-6'>Email</label>
-                    <input type='email' class='form-control ' id='Email' placeholder='Email'>
-                
-                    <label for='dt_nascimento'>Data de nascimento</label>
-                    <input type='date' class='form-control col-4 ' id='dt_nascimento' placeholder='Data de nascimento'>
-
+            <form action='cadastrar_usuario.php' method='POST'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='TituloModalCentralizado'>Cadastrar usuário</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Fechar'>
+                    <span aria-hidden='true'>&times;</span>
+                    </button>
                 </div>
-                        <div class='form-group'>
+                <div class='form-group'>
+                    <div class='row form-group mx-auto'>
+                        <div class='mx-auto'>
+                        <label>Nome</label>
+                            <input type='text' class='form-control col-12 ' id='Nome' name='nome'placeholder='Nome completo' maxlength='40' required>
+                        </div>
+                        <div class='ml-4'>
+                        <label for='cidade'>Cidade</label>
+                            <input type='text' class='form-control col-10' id='cidade' name='cidade' placeholder='Cidade' required>
+                        </div>
+            
+                    </div>
+
+                    
+                    <div class='mx-3'>
+                        <label for='Email sm-6'>Email</label>
+                            <input type='email' class='form-control col-7' id='Email' name='email' placeholder='Email' required>
+                    </div>
+
+                    <div class='row form-group mx-3'>
+                        <div class='mt-3'>
+                        <label>CPF</label>
+                            <input type='text' class='form-control col-12 ' id='cpf' name='cpf' placeholder='CPF' maxlength='11' required>
+                        </div>
+                        <div class='mt-3 mx-auto'>
+                        <label for='dt_nascimento'>Data de nascimento</label>
+                            <input type='date' class='form-control col-12' id='dt_nascimento' name='dt_nascimento' required>
+                        </div>
+            
+                    </div>
+                    <div class=' row mx-3 mt-auto'>
+                        <div class='mt-3'>
+                          <label for=''>Perfil de Acesso</label>
+                          <select class='form-control col-12' name='tp_acesso' id='perfil_acesso' required>
+                            <option>AGR</option>
+                            <option>Técnico</option>
+                            <option>Administrador</option>
+                          </select>
+                        </div>
+
+                        <div class='mt-3 mx-4'>
+                          <label for=''>Status</label>
+                          <select class='form-control col-12' name='status' id='status' required>
+                            <option>Ativo</option>
+                            <option>Inativo</option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class=' row mx-0 mt-3'>
+
+                        <div class='col-6'>
+                          <label for=''>Responsavel</label>
+                          <select class='form-control col-10' name='responsavel' id='responsavel' required>
+                            <option>Nenhum</option>
+                          ";
+
+                            include_once('config.php');
+
+                            $cmd = $conn->query("SELECT * FROM usuarios WHERE user_status = 'Ativo'  and gestor = 'Sim'");
+                            $resultado = $cmd->fetchAll();
+                                    
+                                      
+                            foreach($resultado as $key => $value){
+            
+                                    
+                                        #gera a tabela com os registros do banco de dados
+                                        echo "<option>".$value['nome']."</option>";
+
+                            }
+                
+                    echo" </select>
+                        </div>
+
+                        <div >
+                        <label>Gestor</label>
+                            <div class='form-check'>
+                                <label class='form-check-label'>
+                                    <input type='radio' class='form-check-input' name='option' id='option1' value='Sim' >
+                                    Sim
+                                </label>
+                                <label class='form-check-label ml-5'>
+                                    <input type='radio' class='form-check-input' name='option' id='option2' value='Não' >
+                                    Não
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+        
+                    
+                </div>
+                        <div class='form-group mx-3'>
                             <label for='exampleInputPassword1'>Senha</label>
-                            <input type='password' class='form-control col-7' id='exampleInputPassword1' placeholder='Senha'>
-                            <br>
-                            <input type='password' class='form-control col-7' id='exampleInputPassword2' placeholder='Confirmar senha'>
+                            <input type='password' class='form-control col-6' id='exampleInputPassword1' name='senha' placeholder='Senha' required>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                            <button type='submit' class='btn btn-primary'>Cadastrar</button>
                         </div>
                 </form>
             </div>
-            <div class='modal-footer'>
-                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
-                <button type='button' class='btn btn-primary' data-dismiss='modal'>Salvar alterações</button>
+            </div>
+        </div>
+        </div>
+
+
+
+        <!-- Modal alterar dados -->
+  <div class='modal fade' id='modalEditar' tabindex='-1' role='dialog' aria-labelledby='TituloModalCentralizado' aria-hidden='true'>
+        <div class='modal-dialog modal-dialog-centered' role='document'>
+            <div class='modal-content'>
+            <div class='modal-body'>
+            <form action='editar_dados.php' method='POST'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='TituloModalCentralizado'>Alterar meus dados</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Fechar'>
+                    <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='form-group'>
+                    <div class='row form-group'>
+                        <div class='mx-auto'>
+                        <label>Nome</label>
+                            <input type='text' class='form-control col-12 ' id='Nome' name='nome' placeholder='Nome completo' required>
+                        </div>
+                        <div class='ml-4'>
+                        <label for='cidade'>Cidade</label>
+                            <input type='text' class='form-control col-10' id='cidade' name='cidade' placeholder='Cidade' required>
+                        </div>
+            
+                    </div>
+
+                    
+                    <div class='mx-3'>
+                        <label for='Email sm-6'>Email</label>
+                            <input type='email' class='form-control col-7' id='Email' name='email' placeholder='Email' required>
+                    </div>
+                    <div class='mt-3 mx-3'>
+                        <label for='dt_nascimento'>Data de nascimento</label>
+                            <input type='date' class='form-control col-5 ' id='dt_nascimento' name='dt_nascimento' placeholder='Data de nascimento' required>
+                    </div>
+    
+                    
+                </div>
+                        <div class='form-group mx-3'>
+                            <label for='exampleInputPassword1'>Senha</label>
+                            <input type='password' class='form-control col-6' id='exampleInputPassword1' name='senha' placeholder='Senha' required>
+                            <br>
+                            <input type='password' class='form-control col-6' id='exampleInputPassword2' name='conf_senha' placeholder='Confirmar senha' required>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                            <button type='submit' class='btn btn-primary'>Salvar alterações</button>
+                        </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <!--modal alterar todos os dados -->
+        <div class='modal fade' id='modalEditarUser' tabindex='-1' role='dialog' aria-labelledby='TituloModalCentralizado' aria-hidden='true'>
+        <div class='modal-dialog modal-dialog-centered' role='document'>
+            <div class='modal-content'>
+            <div class='modal-body'>
+            <form action='cadastrar_usuario.php' method='POST'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='TituloModalCentralizado'>Editar dados do usuário</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Fechar'>
+                    <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='form-group mt-3'>
+                    <div class='row form-group mx-auto'>
+                        <div class='mx-auto'>
+                        <label>Nome</label>
+                            <input type='text' class='form-control col-12 ' id='Nome' name='nome'placeholder='Nome completo' maxlength='40' required>
+                        </div>
+                        <div class='ml-4'>
+                        <label>CPF</label>
+                            <input type='text' class='form-control col-12 ' id='cpd' name='cpf'placeholder='CPF' maxlength='11' required>
+                        </div>
+            
+                    </div>
+
+                    
+                    <div class='mx-3'>
+                        <label for='Email sm-6'>Email</label>
+                            <input type='email' class='form-control col-7' id='Email' name='email' placeholder='Email' required>
+                    </div>
+
+                    <div class='row form-group mx-3'>
+                        <div class='mt-3'>
+                        <label for='cidade'>Cidade</label>
+                            <input type='text' class='form-control col-10' id='cidade' name='cidade' placeholder='Cidade' required>
+                        </div>
+                        
+                        <div class='mt-3 mx-auto'>
+                        <label for='dt_nascimento'>Data de nascimento</label>
+                            <input type='date' class='form-control col-12' id='dt_nascimento' name='dt_nascimento' required>
+                        </div>
+            
+                    </div>
+                    <div class=' row mx-3'>
+                        <div class='mt-3'>
+                          <label for=''>Perfil de Acesso</label>
+                          <select class='form-control col-12' name='tp_acesso' id='perfil_acesso' required>
+                            <option>AGR</option>
+                            <option>Técnico</option>
+                            <option>Administrador</option>
+                          </select>
+                        </div>
+
+                        <div class='mt-3 mx-auto'>
+                          <label for=''>Status</label>
+                          <select class='form-control col-12' name='status' id='status' required>
+                            <option>Ativo</option>
+                            <option>Inativo</option>
+                          </select>
+                        </div>
+                    </div>
+        
+                    
+                </div>
+                        <div class='form-group mx-3'>
+                            <label for='exampleInputPassword1'>Senha</label>
+                            <input type='password' class='form-control col-6' id='exampleInputPassword1' name='senha' placeholder='Senha' required>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                            <button type='submit' class='btn btn-primary'>Salvar alterações</button>
+                        </div>
+                </form>
             </div>
             </div>
         </div>
@@ -110,28 +327,28 @@
         <div class='modal fade' id='modalAlterarSenha' tabindex='-1' role='dialog' aria-labelledby='TituloModalCentralizado' aria-hidden='true'>
                 <div class='modal-dialog modal-dialog-centered' role='document'>
                     <div class='modal-content'>
-                    <div class='modal-header'>
-                        <h5 class='modal-title' id='TituloModalCentralizado'>Alterar senha</h5>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Fechar'>
-                        <span aria-hidden='true'>&times;</span>
-                        </button>
-                    </div>
                     <div class='modal-body'>
                         <form action='alterar_senha.php' method='POST'>
-                            <div class='form-group'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title' id='TituloModalCentralizado'>Alterar senha</h5>
+                            <button type='button' class='close' data-dismiss='modal' aria-label='Fechar'>
+                            <span aria-hidden='true'>&times;</span>
+                            </button>
+                        </div>
+                            <div class='form-group mx-3 mt-3'>
                                 <label for='exampleInputEmail1'>Endereço de email</label>
-                                <input type='email' class='form-control' name='email' aria-describedby='emailHelp' placeholder='Seu email'>
+                                <input type='email' class='form-control col-8' name='email' aria-describedby='emailHelp' placeholder='Seu email' required>
                                 <small id='emailHelp' class='form-text text-muted'>Nunca vamos compartilhar seu email, com ninguém.</small>
                             </div>
-                                    <div class='form-group'>
+                                    <div class='form-group mx-3'>
                                         <label for='exampleInputPassword1'>Senha</label>
-                                        <input type='password' class='form-control' name='senha' placeholder='Senha'>
+                                        <input type='password' class='form-control col-6' name='senha' placeholder='Senha' required>
                                         <br>
-                                        <input type='password' class='form-control' name='conf_senha' placeholder='Confirmar senha'>
+                                        <input type='password' class='form-control col-6' name='conf_senha' placeholder='Confirmar senha' required>
                                     </div>
 
                                     <div class='modal-footer'>
-                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
                                         <button type='submit' class='btn btn-primary'>Alterar senha</button>
                                     </div>
                             </form>
@@ -139,6 +356,74 @@
                 
                     </div>
                 </div>
+        </div>
+
+
+        <!-- Modal desativar-->
+        <div class='modal fade' id='modalDesativar' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>
+        <div class='modal-dialog modal-dialog-centered' role='document'>
+            <div class='modal-content'>
+            <div class='modal-body'>
+            <div class='modal-header'>
+                <h5 class='modal-title' id='exampleModalLongTitle'>Permitir ou bloquear acesso</h5>
+                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+            <br>
+                <form action='libera_acesso.php' method='POST'>
+                    <label for='cpf'>CPF</label>
+                    <input class='form-control col-7' type='text' name='cpf' id='cpf' placeholder='CPF' required>
+                    <small id='emailHelp' class='form-text text-muted'>Informe o cpf do usuário.</small>
+
+                    <div class='mt-3 mx-auto'>
+                          <label for=''>Status do usuário</label>
+                          <select class='form-control col-3' name='status' id='status' required>
+                            <option>Ativo</option>
+                            <option>Inativo</option>
+                          </select>
+                    </div>
+                
+                <br>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                    <button type='submit' class='btn btn-danger'>Salvar</button>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        </div>
+
+
+        <!-- Modal deletar-->
+        <div class='modal fade' id='modalDeletar' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>
+        <div class='modal-dialog modal-dialog-centered' role='document'>
+            <div class='modal-content'>
+            <div class='modal-body'>
+            <div class='modal-header'>
+                <h5 class='modal-title' id='exampleModalLongTitle'>Excluir usuário</h5>
+                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+            <br>
+                <form action='deletar.php' method='POST'>
+                    <label for='cpf'>CPF</label>
+                    <input class='form-control col-7' type='text' name='cpf' id='cpf' placeholder='CPF'>
+                    <small id='emailHelp' class='form-text text-muted'>Esse usuário será excluido permanetemente.</small>
+                
+                <br>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                    <button type='submit' class='btn btn-danger'>Deletar</button>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
         </div>
 
 

@@ -33,7 +33,7 @@ thead{
 
 .scroll{
     margin: 10px;
-    max-height: 350px;
+    max-height: 300px;
     overflow: scroll;
 }
 
@@ -46,6 +46,20 @@ thead{
     padding: 2px;
 }
 
+.botao-buscar{
+margin-top: 10% !important;
+}
 
+.botao-buscar .row{
+justify-content: center;
+}
+
+.fundo-tabela{
+background-color: #e9ecef;
+margin-top: 30px !important;
+border-color: #e9ecef ;
+border-radius: 8px;
+padding: 2px;
+}
 
 

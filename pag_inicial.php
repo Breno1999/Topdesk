@@ -23,92 +23,9 @@
 <body>
 
 <?php
-
-  include_once('session.php');
-  include('session_protect.php');
-  
-  if($_SESSION['tipo_acesso'] == 'Administrador'){
-    include_once('navbar_adm.php');
-  }
-  else{
-    include_once('navbar_tec.php');
-  }
-  
-?> 
-
-
-    <!-- Modal alterar senha -->
-    <div class="container-fluid">
-        <div class="modal fade" id="ExemploModalCentralizado1" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="TituloModalCentralizado">Alterar senha</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Endereço de email</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu email">
-                            <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
-                        </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Senha</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
-                                    <br>
-                                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Confirmar senha">
-                                </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Alterar senha</button>
-                    </div>
-                    </div>
-                </div>
-        </div>
-
-        <!-- Modal alterar todos dados -->
-        <div class="modal fade" id="ExemploModal" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="TituloModalCentralizado">Alterar meus dados</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <form>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Nome</label>
-                    <input type="text" class="form-control" id="Nome" placeholder="Nome completo">
-
-                    <label for="Email sm-6">Email</label>
-                    <input type="email" class="form-control " id="Email" placeholder="Email">
-                
-                    <label for="dt_nascimento">Data de nascimento</label>
-                    <input type="date" class="form-control col-4 " id="dt_nascimento" placeholder="Data de nascimento">
-
-                </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Senha</label>
-                            <input type="password" class="form-control col-7" id="exampleInputPassword1" placeholder="Senha">
-                            <br>
-                            <input type="password" class="form-control col-7" id="exampleInputPassword2" placeholder="Confirmar senha">
-                        </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar alterações</button>
-            </div>
-            </div>
-        </div>
-        </div>
+    include_once('session.php');
+    include_once('session_protect.php');
+?>
 
       
     
@@ -126,7 +43,9 @@
                                 <?php
                                         include_once('config.php');
 
-                                        $cmd = $conn->query("SELECT COUNT(status_atendimento) FROM atendimentos WHERE status_atendimento = ''");
+                                        $data = date('Y-m-d');
+
+                                        $cmd = $conn->query("SELECT COUNT(status_atendimento) FROM atendimentos WHERE status_atendimento = 'Não iniciado' ");
                                         $result = $cmd->fetch();
                                         echo "<p style='font-size: 25px'>".$result['COUNT(status_atendimento)']."</p>";
 
@@ -148,7 +67,9 @@
                                 <?php
                                         include_once('config.php');
 
-                                        $cmd = $conn->query("SELECT COUNT(status_atendimento) FROM atendimentos WHERE status_atendimento = 'Em atendimento'");
+                                        $data = date('Y-m-d');
+
+                                        $cmd = $conn->query("SELECT COUNT(status_atendimento) FROM atendimentos WHERE status_atendimento = 'Em atendimento' ");
                                         $result = $cmd->fetch();
                                         echo "<p style='font-size: 25px'>".$result['COUNT(status_atendimento)']."</p>";
 
@@ -163,13 +84,15 @@
                     <div class="col-md-4 col-xl-3">
                         <div class="card bg-c-verde order-card">
                             <div class="card-block">
-                                <h5 class="m-b-20">Concluídos: </h5>
+                                <h5 class="m-b-20">Concluídos hoje: </h5>
                                 <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>
                                   
                                 <?php
                                         include_once('config.php');
 
-                                        $cmd = $conn->query("SELECT COUNT(status_atendimento) FROM atendimentos WHERE status_atendimento = 'Concluído'");
+                                        $data = date('Y-m-d');
+
+                                        $cmd = $conn->query("SELECT COUNT(status_atendimento) FROM atendimentos WHERE status_atendimento = 'Concluído' and date(data_conclusao) = '$data'");
                                         $result = $cmd->fetch();
                                         echo "<p style='font-size: 25px'>".$result['COUNT(status_atendimento)']."</p>";
 
@@ -182,6 +105,41 @@
                     </div>
                     
               </div>
+
+              <div class="row">
+
+                <div class="col-md-4 col-xl-3">
+                    <div class="card bg-c-azul order-card">
+                        <div class="card-block">
+                            <h5 class="m-b-20">Você concluiu:</h5>
+                            <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>
+                            
+                            <?php
+
+                                include_once('config.php');
+                                
+                                $data = date('Y-m-d');
+
+                                $cmd = $conn->query("SELECT COUNT(*) FROM atendimentos WHERE status_atendimento = 'Concluído' and tec_responsavel = '$_SESSION[nome]' and date(data_conclusao) = '$data'");
+                                $result = $cmd->fetch();
+                                echo "<p style='font-size: 25px'>".$result['COUNT(*)']."</p>";
+
+
+
+                            ?>
+
+                            </span></h2>
+                            <p class="m-b-0"><span class="f-right">Atendimentos</span></p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                </div>
+                </div>
+
           </div>
       </div>
     

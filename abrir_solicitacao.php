@@ -19,7 +19,8 @@
   <body>
     
   <?php
-    include_once('session.php')
+    include_once('session.php');
+    include_once('verifica_acesso.php');
   ?>
 
     <div class="container">
@@ -32,17 +33,17 @@
                 <div class="row">  
                     <div class="form-group mx-auto col-7">
                         <label for="solicitante">Solicitante:</label>
-                        <input class="form-control" type="text" name="solicitante" maxlength="70" required>
+                        <input class="form-control" type="text" name="solicitante"  value="<?php echo "$_SESSION[nome]"; ?>" maxlength="70" required>
                     </div>
                     <div class="form-group mx-auto col-5">
                         <label for="cpf">CPF:</label>
-                        <input class="form-control" type="text" name="cpf" maxlength="11" required>
+                        <input class="form-control" type="text" name="cpf" maxlength="11" value="<?php echo "$_SESSION[cpf]"; ?>"required>
                     </div>
                 </div> 
                 <div class="row">  
                     <div class="form-group mx-auto col-6">
                         <label for="email">Email:</label>
-                        <input class="form-control" type="email" name="email" maxlength="50" required>
+                        <input class="form-control" type="email" name="email"  value="<?php echo "$_SESSION[email]"; ?>" maxlength="50" required>
                     </div>
                     <div class="form-group mx-auto col-6">
                         <label for="anydesk">Anydesk:</label>
@@ -72,12 +73,12 @@
                 </div>  
                 <div class="form-group">
                   <label for="descricao">Descrição:</label>
-                  <textarea class="form-control" name="descricao" rows="3" maxlength="200" required></textarea>
+                  <textarea class="form-control" name="descricao" rows="3" maxlength="100" required></textarea>
                 </div>
 
                 <div >
                     <div class="row footer-form">
-                        <a href="index.php" class="btn btn-outline-danger mx-2">Cancelar</a>
+                        <a href="deslogar.php" class="btn btn-outline-danger mx-2">Cancelar</a>
                         <button class="btn btn-outline-dark mx-2" type="submit">Concluir</button>
                     </div>
                 </div>

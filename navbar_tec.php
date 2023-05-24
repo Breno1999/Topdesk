@@ -19,8 +19,15 @@
                             <a class='nav-link' href='pag_atendimentos.php'>Atendimentos <span class='sr-only'>(current)</span></a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='#'>Inventário de máquina</a>
+                            <a class='nav-link' href='pag_inventarios.php'>Inventário de máquina</a>
                         </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='pag_listar_usuario.php'>Usuários</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='pag_listar_gestor.php'>Gestores</a>
+                        </li>
+
 
                     </ul>
 
@@ -34,11 +41,12 @@
                             </a>
                             <div class='dropdown-menu' aria-labelledby='dropdownId'>
                                 <h6 class='dropdown-header'>Perfil</h6>
-                                <a class='dropdown-item' href='#'>Alterar senha</a>
-                                <a class='dropdown-item' data-toggle='modal' data-target='#editarModal'>Editar dados</a>
+                                <a class='dropdown-item' data-toggle='modal' data-target='#modalAlterarSenha'>Alterar senha</a>
+                                <a class='dropdown-item' data-toggle='modal' data-target='#modalEditar'>Editar dados</a>
                                 <a class='dropdown-item' href='deslogar.php'>Sair</a>
                             </div>
                         </li>
+                        
 
                         <li class='nav-item mt-lg-3 '>
                             <p style='color: black;'>
@@ -53,6 +61,97 @@
             </nav>
 
         </header>
+
+
+
+        <!-- Modal alterar todos dados -->
+  <div class='modal fade' id='modalEditar' tabindex='-1' role='dialog' aria-labelledby='TituloModalCentralizado' aria-hidden='true'>
+        <div class='modal-dialog modal-dialog-centered' role='document'>
+            <div class='modal-content'>
+            <div class='modal-body'>
+            <form action='editar_dados.php' method='POST'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='TituloModalCentralizado'>Alterar meus dados</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Fechar'>
+                    <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='form-group'>
+                    <div class='row form-group'>
+                        <div class='mx-auto'>
+                        <label>Nome</label>
+                            <input type='text' class='form-control col-12 ' id='Nome' name='nome' placeholder='Nome completo'>
+                        </div>
+                        <div class='ml-4'>
+                        <label for='cidade'>Cidade</label>
+                            <input type='text' class='form-control col-10' id='cidade' name='cidade' placeholder='Cidade'>
+                        </div>
+            
+                    </div>
+
+                    
+                    <div class='mx-3'>
+                        <label for='Email sm-6'>Email</label>
+                            <input type='email' class='form-control col-7' id='Email' name='email' placeholder='Email'>
+                    </div>
+                    <div class='mt-3 mx-3'>
+                        <label for='dt_nascimento'>Data de nascimento</label>
+                            <input type='date' class='form-control col-5 ' id='dt_nascimento' name='dt_nascimento' placeholder='Data de nascimento'>
+                    </div>
+    
+                    
+                </div>
+                        <div class='form-group mx-3'>
+                            <label for='exampleInputPassword1'>Senha</label>
+                            <input type='password' class='form-control col-6' id='exampleInputPassword1' name='senha' placeholder='Senha'>
+                            <br>
+                            <input type='password' class='form-control col-6' id='exampleInputPassword2' name='conf_senha' placeholder='Confirmar senha'>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                            <button type='submit' class='btn btn-primary'>Salvar alterações</button>
+                        </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Modal alterar senha -->
+    <div class='container-fluid'>
+        <div class='modal fade' id='modalAlterarSenha' tabindex='-1' role='dialog' aria-labelledby='TituloModalCentralizado' aria-hidden='true'>
+                <div class='modal-dialog modal-dialog-centered' role='document'>
+                    <div class='modal-content'>
+                    <div class='modal-body'>
+                        <form action='alterar_senha.php' method='POST'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title' id='TituloModalCentralizado'>Alterar senha</h5>
+                            <button type='button' class='close' data-dismiss='modal' aria-label='Fechar'>
+                            <span aria-hidden='true'>&times;</span>
+                            </button>
+                        </div>
+                            <div class='form-group'>
+                                <label for='exampleInputEmail1'>Endereço de email</label>
+                                <input type='email' class='form-control col-8' name='email' aria-describedby='emailHelp' placeholder='Seu email'>
+                                <small id='emailHelp' class='form-text text-muted'>Nunca vamos compartilhar seu email, com ninguém.</small>
+                            </div>
+                                    <div class='form-group'>
+                                        <label for='exampleInputPassword1'>Senha</label>
+                                        <input type='password' class='form-control col-6' name='senha' placeholder='Senha'>
+                                        <br>
+                                        <input type='password' class='form-control col-6' name='conf_senha' placeholder='Confirmar senha'>
+                                    </div>
+
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>
+                                        <button type='submit' class='btn btn-primary'>Alterar senha</button>
+                                    </div>
+                            </form>
+                    </div>
+                
+                    </div>
+                </div>
+        </div>
 
         ";
 
