@@ -1,2 +1,2 @@
 # Topdesk
-Sistema de helpdesk
+Sistema de helpdesk desenvolvido para departamento de suporte técnico em certifidora digitais.
