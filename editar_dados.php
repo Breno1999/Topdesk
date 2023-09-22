@@ -1,6 +1,7 @@
 <?php
 
 require_once('Usuario.php');
+require_once('session.php');
 
 $nome = $_POST['nome'];
 $email = $_POST['email'];
@@ -9,19 +10,27 @@ $cidade = $_POST['cidade'];
 $senha = $_POST['senha'];
 $confSenha = $_POST['conf_senha'];
 
-if ($senha != $confSenha) {
+    if($email == $_SESSION['email']){
 
-    echo "<script>alert('Os campos senha e confirmar senha devem ser iguais!')</script>";
-    echo "<script>location.href= 'pag_atendimentos.php';</script>";
-    
-}
-else{
+        if ($senha != $confSenha) {
 
-    $cmd = new Usuario();
-    $cmd->editarDados($nome,$email,$cidade, $dt_nascimento, $senha);
+            echo "<script>alert('Os campos senha e confirmar senha devem ser iguais!')</script>";
+            echo "<script>location.href= 'pag_atendimentos.php';</script>";
+            
+        }
+        else{
 
-    
-}
+            $cmd = new Usuario();
+            $cmd->editarDados($nome,$email,$cidade, $dt_nascimento, $senha);
+
+            
+        }
+    }
+    else{
+
+        echo "<script>alert('Por favor, insira o seu email de usuário!')</script>";
+        echo "<script>location.href= 'pag_atendimentos.php';</script>";
+    }
 
 
 

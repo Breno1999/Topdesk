@@ -34,6 +34,10 @@
         border-radius: 8px;
         padding: 2px;
         }
+
+        th {
+            width: 100px;
+          }
     </style>
 
 
@@ -69,7 +73,8 @@
         
         <?php
 
-            include_once('config.php');
+            include_once 'config.php';
+            require_once 'timezone.php';
 
             $data = date('Y-m-d');
 
@@ -139,13 +144,13 @@
                                         if(empty($resultado) && empty($_POST['buscar'])){
 
                                         echo"
-                                            <tr>
+                                            <tr >
                                             
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td scope='row'>
+                                                    <td style='width: 200px !important;' scope='row'>
                                                         <br>
                                                         <h6>Nenhum atendimento no momento</h6>
                                                         <br>

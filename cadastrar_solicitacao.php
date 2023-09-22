@@ -1,5 +1,6 @@
 <?php
-    include_once('config.php');
+    include_once 'config.php';
+    require_once 'timezone.php';
 
     $solicitante = $_POST['solicitante'];
     $cpf = $_POST['cpf'];
@@ -16,7 +17,7 @@
     
 
     if($result == true){
-        echo "<script>alert('Solicitação registrada com sucesso')</script>";
+        echo "<script>alert('Solicitação feita! Logo um de nossos atendentes irá atender você.')</script>";
         echo "<script>location.href= 'deslogar.php';</script>";
     }
     else{

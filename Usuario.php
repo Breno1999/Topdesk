@@ -34,6 +34,13 @@
             return $this->email = $email;
         }
 
+        public function getTelefone(){
+            return $this->senha;
+        }
+        public function setTelefone($telefone){
+            return $this->telefone = $telefone;
+        }
+
         public function getPerfil(){
             return $this->perfil_acesso;
         }
@@ -84,7 +91,7 @@
         }
 
         #metodo para cadastrar o usuario
-        public function cadastrarUsuario($nome,$cpf,$email,$perfil_acesso, $cidade, $dt_nascimento, $status, $responsavel, $gestor, $senha){
+        public function cadastrarUsuario($nome,$cpf,$email,$telefone, $perfil_acesso, $cidade, $dt_nascimento, $status, $responsavel, $gestor, $senha){
 
             try {
                 include_once('config.php');
@@ -92,6 +99,7 @@
                 $this->nome = $nome;
                 $this->cpf = $cpf;
                 $this->email = $email;
+                $this->telefone = $telefone;
                 $this->perfil_acesso = $perfil_acesso;
                 $this->cidade = $cidade;
                 $this->dt_nascimento = $dt_nascimento;
@@ -101,7 +109,7 @@
                 $this->senha = $senha;
 
                 #cadastra o novo usuario na base de dados
-                $cmd = $conn->query("INSERT INTO usuarios VALUES ('','$nome','$cpf','$email','$perfil_acesso','$cidade','$dt_nascimento','$status','$responsavel', '$gestor', '$senha')");
+                $cmd = $conn->query("INSERT INTO usuarios VALUES ('','$nome','$cpf','$email', '$telefone', '$perfil_acesso','$cidade','$dt_nascimento','$status','$responsavel', '$gestor', '$senha')");
     
 
                 if($cmd){
@@ -192,7 +200,6 @@
                 $this->cpf = $cpf;
                 $this->status = $status;
 
-        
 
                     #faz alterar os valores do usuario na base de dados
                     $cmd = $conn->prepare("UPDATE usuarios SET user_status = :s WHERE cpf = :cpf");
@@ -214,6 +221,10 @@
                             echo "<script>alert('Acesso do usuario Desativado!');</script>";
                             echo "<script>location.href= 'pag_listar_usuario.php';</script>";
                             
+                        }
+                        elseif(empty($resultado)){
+                            echo "<script>alert('Nenhum CPF encontrado!');</script>";
+                            echo "<script>location.href= 'pag_listar_usuario.php';</script>";
                         }
                     }
 
@@ -237,15 +248,29 @@
 
                 $this->cpf = $cpf;
 
-                #faz alteração da senha no banco de dados 
-                $cmd = $conn->prepare("DELETE FROM usuarios WHERE cpf = :cpf");
-                $cmd->bindValue(":cpf", $cpf);
-                $cmd->execute();
+                $cmd = $conn->query("SELECT * FROM usuarios WHERE cpf = '$cpf' ");
+                $resultado = $cmd->fetch();
 
                 if($cmd){
-                    echo "<script>alert('Usuario apagado com sucesso!');</script>";
-                    echo "<script>location.href= 'pag_listar_usuario.php';</script>";
+
+
+                    if($resultado){
+
+                        #faz alteração da senha no banco de dados 
+                        $cmd = $conn->prepare("DELETE FROM usuarios WHERE cpf = :cpf");
+                        $cmd->bindValue(":cpf", $cpf);
+                        $cmd->execute();
+
+                        echo "<script>alert('Usuario apagado com sucesso!');</script>";
+                        echo "<script>location.href= 'pag_listar_usuario.php';</script>";
+                    }
+                    elseif(empty($resultado)){
+                        echo "<script>alert('Nenhum CPF encontrado!');</script>";
+                        echo "<script>location.href= 'pag_listar_usuario.php';</script>";
+                    }
+                    
                 }
+                
             
             } catch (\Exception $e) {
                 

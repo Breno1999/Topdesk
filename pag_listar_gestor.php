@@ -38,6 +38,10 @@
               max-height: 320px;
               overflow: scroll;
           }
+          
+          th {
+            width: 100px;
+          }
 
     </style>
 
@@ -102,10 +106,12 @@
                                 </tr>
                             </thead>
                         
-                        <tbody class="bg-light">
+                        <tbody class="bg-light ">
                         <?php
                           #inclui o arquivo de configuração do banco
                           include_once('config.php');
+
+                          
 
                           #verifica se o campo buscar esta preenchido
                           if(!empty($_POST['buscar'])){
@@ -128,11 +134,17 @@
                                 echo "<td>".$value['user_status']."</td>";
                                 echo "<td>
 
-                                        <button style='border-radius: 30px;' class='btn btn-warning' data-toggle='modal' data-target='#modalGestor".$value['id_usuario']."'>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='13' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'>
-                                          <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/>
-                                        </svg>
-                                        </button>
+                                      <button style='border-radius: 30px;' class='btn btn-warning' data-toggle='modal' data-target='#modalGestor".$value['id_usuario']."'>
+                                      <svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='currentColor' class='bi bi-people-fill' viewBox='0 0 16 16'>
+                                        <path d='M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z'/>
+                                      </svg>
+                                      </button>
+
+                                      <a href='https://wa.me/".$value['telefone']."' style='border-radius: 30px;' class='btn btn-success'>
+                                      <svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' fill='currentColor' class='bi bi-whatsapp' viewBox='0 0 16 16'>
+                                        <path d='M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z'/>
+                                      </svg>
+                                      </a>
                                         
                                         </td>
                                         
@@ -147,11 +159,6 @@
                                                             <span aria-hidden='true'>&times;</span>
                                                             </button>
                                                       </div>
-
-                                                      <div class='row mx-5 mt-5'>
-                                                      <input style='border-radius: 15px;' class='form-control col-8' type='search' name='buscar' id='' placeholder='Procurar'>
-                                                      <button style='border-radius: 15px;' class='btn btn-outline-primary ml-4' type='submit'>Procurar</button>
-                                                      </div>
                                                         
                                                     
                                                       <ul class='list-group mt-4 mx-3 mb-5'>";
@@ -162,8 +169,25 @@
                                                       foreach($resultado as $key => $value){
             
                                     
-                                                        #gera a tabela com os registros do banco de dados
-                                                        echo "<li class='list-group-item list-group-item-action'>".$value['nome']."</li>";
+                                                        #gera a lista de agrs vinculados ao gestor
+                                                        echo"<li class='list-group-item list-group-item-action'>
+                                                        <div class='row d-flex justify-content-between mx-auto'>".
+                                                        $value['nome'].
+                                                        "<div class='justify-content-around'>
+                                                          <a data-toggle='modal' data-target='#modalEmail'>
+                                                            <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-envelope' viewBox='0 0 16 16'>
+                                                              <path d='M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z'/>
+                                                            </svg>
+                                                          </a>
+                                                          &nbsp;
+                                                          <a href='https://wa.me/".$value['telefone']."' >
+                                                            <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-whatsapp' viewBox='0 0 16 16'>
+                                                              <path d='M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z'/>
+                                                            </svg>
+                                                          </a>  
+                                                          </div>
+                                                        </div>
+                                                        </li>";
                                                         
 
                                                       }
@@ -205,10 +229,18 @@
                                         echo "<td>
 
                                         <button style='border-radius: 30px;' class='btn btn-warning' data-toggle='modal' data-target='#modalGestor".$value['id_usuario']."'>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='13' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'>
-                                          <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='currentColor' class='bi bi-people-fill' viewBox='0 0 16 16'>
+                                          <path d='M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z'/>
                                         </svg>
                                         </button>
+
+                                        <a href='https://wa.me/".$value['telefone']."' style='border-radius: 30px;' class='btn btn-success'>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' fill='currentColor' class='bi bi-whatsapp' viewBox='0 0 16 16'>
+                                          <path d='M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z'/>
+                                        </svg>
+                                        </a>
+
+                                        
                                         
                                         </td>
                                         
@@ -223,14 +255,9 @@
                                                             <span aria-hidden='true'>&times;</span>
                                                             </button>
                                                       </div>
-
-                                                      <div class='row mx-5 mt-5'>
-                                                      <input style='border-radius: 15px;' class='form-control col-8' type='search' name='buscar' id='' placeholder='Procurar'>
-                                                      <button style='border-radius: 15px;' class='btn btn-outline-primary ml-4' type='submit'>Procurar</button>
-                                                      </div>
                                                         
                                                     
-                                                      <ul class='list-group mt-4 mx-3 mb-4' style='text-align: center;'>";
+                                                      <ul class='list-group mt-4 mx-3 mb-4' >";
 
                                                       $cmd = $conn->query("SELECT * FROM usuarios WHERE responsavel = '$value[nome]'");
                                                       $resultadoA = $cmd->fetchAll();
@@ -241,9 +268,25 @@
                                                         foreach($resultadoA as $key => $value){
                                         
                                       
-                                                          #gera a tabela com os registros do banco de dados
-                                                          echo "<li class='list-group-item list-group-item-action'>".$value['nome']."</li>";
-                                                          
+                                                          #gera a lista de agrs vinculados ao gestor
+                                                          echo"<li class='list-group-item list-group-item-action'>
+                                                          <div class='row d-flex justify-content-between mx-auto'>".
+                                                          $value['nome'].
+                                                          "<div class='justify-content-around'>
+                                                            <a data-toggle='modal' data-target='#modalEmail'>
+                                                              <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-envelope' viewBox='0 0 16 16'>
+                                                                <path d='M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z'/>
+                                                              </svg>
+                                                            </a>
+                                                            &nbsp;
+                                                            <a href='https://wa.me/".$value['telefone']."' >
+                                                              <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-whatsapp' viewBox='0 0 16 16'>
+                                                                <path d='M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z'/>
+                                                              </svg>
+                                                            </a>  
+                                                            </div>
+                                                          </div>
+                                                          </li>";
 
                                                         }
 
@@ -272,17 +315,24 @@
                                               </div>
                                             </div>
                                           </div>
-                                        </tr>";
+                                        </tr>
+                                        ";
                                 
                                     }
+                            echo"
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                </div>
+                            
+                ";
                             
                         }
                           ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                        
+
+
      
 
  

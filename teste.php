@@ -11,14 +11,33 @@
   </head>
   <body>
 
-    <footer>
+        <div class="modal fade" id="modalDeletar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-body">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Excluir usuário</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+                <form action="editar.php" method="POST">
+                    <label for="cpf">CPF</label>
+                    <input class="form-control col-7" type="text" name="cpf" value="$resultado['nome']" id="cpf" maxlength="11" placeholder="CPF">
+                    <small id="emailHelp" class="form-text text-muted">Esse usuário será excluido permanetemente.</small>
+                
+                <br>
 
-    <div class="footer bg-light mx-auto" style="text-align: center; ">
-      <p>Desenvolvido por BV Tecnology</p>
-    </div>
-
-    </footer>
-
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Deletar</button>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        </div>
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

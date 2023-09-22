@@ -44,9 +44,10 @@
                     
                         <li class='nav-item dropdown dropleft mt-lg-2 mr-2'>
                             <a class='nav-link dropdown-toggle' href='#' id='dropdownId' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-person-fill' viewBox='0 0 16 16'>
-                                    <path d='M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z'/>
-                                </svg>
+                            <svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' fill='currentColor' class='bi bi-person-circle' viewBox='0 0 16 16'>
+                                <path d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'/>
+                                <path fill-rule='evenodd' d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z'/>
+                            </svg>
                             </a>
                             <div class='dropdown-menu' aria-labelledby='dropdownId'>
                                 <h6 class='dropdown-header'>Perfil</h6>
@@ -97,17 +98,24 @@
                     </div>
 
                     
-                    <div class='mx-3'>
-                        <label for='Email sm-6'>Email</label>
-                            <input type='email' class='form-control col-7' id='Email' name='email' placeholder='Email' required>
+                    <div class='row form-group mx-auto'>
+                        <div class='mx-auto'>
+                        <label>Email</label>
+                            <input type='email' class='form-control col-12 ' id='email' name='email' placeholder='Email' maxlength='40' required>
+                        </div>
+                        <div class='ml-4'>
+                        <label for='Telefone'>Telefone</label>
+                            <input type='text' class='form-control col-10' id='telefone' name='telefone' maxlength='11' placeholder='Telefone' required>
+                        </div>
+            
                     </div>
 
                     <div class='row form-group mx-3'>
-                        <div class='mt-3'>
+                        <div class='mt-1'>
                         <label>CPF</label>
                             <input type='text' class='form-control col-12 ' id='cpf' name='cpf' placeholder='CPF' maxlength='11' required>
                         </div>
-                        <div class='mt-3 mx-auto'>
+                        <div class='mt-1 mx-auto'>
                         <label for='dt_nascimento'>Data de nascimento</label>
                             <input type='date' class='form-control col-12' id='dt_nascimento' name='dt_nascimento' required>
                         </div>
@@ -203,11 +211,12 @@
                     <span aria-hidden='true'>&times;</span>
                     </button>
                 </div>
+                
                 <div class='form-group'>
                     <div class='row form-group'>
                         <div class='mx-auto'>
                         <label>Nome</label>
-                            <input type='text' class='form-control col-12 ' id='Nome' name='nome' placeholder='Nome completo' required>
+                            <input type='text' class='form-control col-12 ' id='Nome' value='$_SESSION[nome]' name='nome' placeholder='Nome completo' required>
                         </div>
                         <div class='ml-4'>
                         <label for='cidade'>Cidade</label>
@@ -219,7 +228,7 @@
                     
                     <div class='mx-3'>
                         <label for='Email sm-6'>Email</label>
-                            <input type='email' class='form-control col-7' id='Email' name='email' placeholder='Email' required>
+                            <input type='email' class='form-control col-7' id='Email' value='$_SESSION[email]' name='email' placeholder='Email' required>
                     </div>
                     <div class='mt-3 mx-3'>
                         <label for='dt_nascimento'>Data de nascimento</label>
@@ -373,7 +382,7 @@
             <br>
                 <form action='libera_acesso.php' method='POST'>
                     <label for='cpf'>CPF</label>
-                    <input class='form-control col-7' type='text' name='cpf' id='cpf' placeholder='CPF' required>
+                    <input class='form-control col-7' type='text' name='cpf' id='cpf' placeholder='CPF' maxlength='11' required>
                     <small id='emailHelp' class='form-text text-muted'>Informe o cpf do usuário.</small>
 
                     <div class='mt-3 mx-auto'>
@@ -411,7 +420,7 @@
             <br>
                 <form action='deletar.php' method='POST'>
                     <label for='cpf'>CPF</label>
-                    <input class='form-control col-7' type='text' name='cpf' id='cpf' placeholder='CPF'>
+                    <input class='form-control col-7' type='text' name='cpf' id='cpf' maxlength='11' placeholder='CPF'>
                     <small id='emailHelp' class='form-text text-muted'>Esse usuário será excluido permanetemente.</small>
                 
                 <br>

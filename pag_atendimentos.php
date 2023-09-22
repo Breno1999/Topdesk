@@ -22,6 +22,10 @@
         .botao-buscar{
         margin-top: 10% !important;
         }
+        
+        .botao-buscar .row{
+            justify-content: center;
+        }
 
         .fundo-tabela{
         background-color: #e9ecef;
@@ -35,6 +39,10 @@
               margin: 10px;
               max-height: 320px;
               overflow: scroll;
+          }
+
+          th {
+            width: 100px;
           }
     </style>
 
@@ -72,8 +80,8 @@
         
         <?php
 
-            include_once('config.php');
-
+            include_once 'config.php';
+            require_once 'timezone.php';
             
 
             #trás todos os registros da tabela atendimentos
@@ -98,13 +106,13 @@
                                 #altera o header da tabela se tiver ou não resultados
                                 if(empty($_POST['buscar'])){
                                     echo"
-                                        <thead class='thead-light ' style='text-align: center;'>
+                                        <thead class='thead-light ' style='text-align: center; '>
                                             <tr>
                                                 <th scope='col'></th>
                                                 <th scope='col'></th>
                                                 <th scope='col'></th>
                                                 <th scope='col'></th>
-                                                <th scope='col'>...</th>
+                                                <th style='width: 200px !important;' scope='col'>...</th>
                                                 <th scope='col'></th>
                                                 <th scope='col'></th>
                                                 <th scope='col'></th>
@@ -136,7 +144,7 @@
                                     }
 
                                 }
-                                    echo"<tbody class='bg-light' style='text-align: center;'>";
+                                    echo"<tbody class='bg-light ' style='text-align: center;'>";
 
                                         if(empty($resultado) && empty($_POST['buscar'])){
 
@@ -147,7 +155,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td scope='row'>
+                                                    <td style='width: 200px !important;' scope='row'>
                                                         <br>
                                                         <h6>Nenhum atendimento no momento</h6>
                                                         <br>
@@ -381,7 +389,7 @@
                         $data = date('Y-m-d');
 
                         #trás todos os registros da tabela atendimentos
-                        $cmd = $conn->query("SELECT *, date_format(data_solicitacao, '%d/%m/%Y %H:%i:%s') as dt_solicitacao_form, date_format(data_conclusao, '%d/%m/%Y %H:%i:%s') as dt_conclusao_form FROM atendimentos WHERE status_atendimento = 'Em atendimento' or status_atendimento = 'Não iniciado'");
+                        $cmd = $conn->query("SELECT *, date_format(data_solicitacao, '%d/%m/%Y %H:%i:%s') as dt_solicitacao_form, date_format(data_conclusao, '%d/%m/%Y %H:%i:%s') as dt_conclusao_form FROM atendimentos WHERE status_atendimento = 'Em atendimento' or status_atendimento = 'Não iniciado' ORDER BY dt_solicitacao_form DESC");
                         $resultado = $cmd->fetchAll();
                         
                         

@@ -7,7 +7,7 @@ if(!isset($_SESSION)){
 }
 
 if(empty($_SESSION)){
-    echo "<script>alert('Usuário deslogado!');</script>";
+    echo "<script>alert('Usuário não autenticado!');</script>";
     echo "<script>location.href= 'index.php';</script>";
 }
 

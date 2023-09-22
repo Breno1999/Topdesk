@@ -4,6 +4,7 @@
     $nome = $_POST['nome'];
     $cpf = $_POST['cpf'];
     $email = $_POST['email'];
+    $telefone = $_POST['telefone'];
     $dt_nascimento = $_POST['dt_nascimento'];
     $cidade = $_POST['cidade'];
     $tp_acesso = $_POST['tp_acesso'];
@@ -15,6 +16,6 @@
     
 
     $usuario = new Usuario();
-    $usuario->cadastrarUsuario($nome,$cpf,$email,$tp_acesso,$cidade,$dt_nascimento,$status, $responsavel, $gestor, $senha); 
+    $usuario->cadastrarUsuario($nome,$cpf,$email,$telefone,$tp_acesso,$cidade,$dt_nascimento,$status, $responsavel, $gestor, $senha); 
    
 ?>

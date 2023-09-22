@@ -1,5 +1,7 @@
 
-
+body{
+  background: url("fundo1.jpg") !important;
+}
 .order-card {
   color: black;
 }
@@ -14,10 +16,6 @@
 
 .bg-c-verde {
   background: linear-gradient(45deg,#2ed8b6,#b3ffcc);
-}
-
-.row{
-  justify-content: center;
 }
 
 

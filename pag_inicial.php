@@ -33,7 +33,7 @@
    
         <div class="container">
             <div class="posicao">
-                <div class="row">
+                <div class="row" style="justify-content: center;">
                     <div class="col-md-4 col-xl-3">
                         <div class="card bg-c-cinza order-card">
                             <div class="card-block">
@@ -41,7 +41,10 @@
                                 <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>
                                   
                                 <?php
-                                        include_once('config.php');
+                                        include_once 'config.php';
+                                        require_once 'timezone.php';
+
+                                        $fuso = date_default_timezone_set('America/Sao_Paulo');
 
                                         $data = date('Y-m-d');
 
@@ -65,7 +68,8 @@
                                 <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span>
                                   
                                 <?php
-                                        include_once('config.php');
+                                        include_once 'config.php';
+                                        require_once 'timezone.php';
 
                                         $data = date('Y-m-d');
 
@@ -88,13 +92,15 @@
                                 <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span>
                                   
                                 <?php
-                                        include_once('config.php');
+                                        include_once 'config.php';
+                                        require_once 'timezone.php';
+
 
                                         $data = date('Y-m-d');
 
-                                        $cmd = $conn->query("SELECT COUNT(status_atendimento) FROM atendimentos WHERE status_atendimento = 'Concluído' and date(data_conclusao) = '$data'");
+                                        $cmd = $conn->query("SELECT COUNT(status_atendimento) as total FROM atendimentos WHERE status_atendimento = 'Concluído' and date(data_conclusao) = '$data'");
                                         $result = $cmd->fetch();
-                                        echo "<p style='font-size: 25px'>".$result['COUNT(status_atendimento)']."</p>";
+                                        echo "<p style='font-size: 25px'>".$result['total']."</p>";
 
                                       ?>
 
@@ -106,7 +112,7 @@
                     
               </div>
 
-              <div class="row">
+              <div class="row" style="justify-content: center;">
 
                 <div class="col-md-4 col-xl-3">
                     <div class="card bg-c-azul order-card">
@@ -116,13 +122,14 @@
                             
                             <?php
 
-                                include_once('config.php');
+                                include_once 'config.php';
+                                require_once 'timezone.php';
                                 
                                 $data = date('Y-m-d');
 
-                                $cmd = $conn->query("SELECT COUNT(*) FROM atendimentos WHERE status_atendimento = 'Concluído' and tec_responsavel = '$_SESSION[nome]' and date(data_conclusao) = '$data'");
+                                $cmd = $conn->query("SELECT COUNT(*) as total FROM atendimentos WHERE status_atendimento = 'Concluído' and tec_responsavel = '$_SESSION[nome]' and date(data_conclusao) = '$data'");
                                 $result = $cmd->fetch();
-                                echo "<p style='font-size: 25px'>".$result['COUNT(*)']."</p>";
+                                echo "<p style='font-size: 25px'>".$result['total']."</p>";
 
 
 

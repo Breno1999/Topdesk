@@ -50,7 +50,7 @@ thead{
 margin-top: 10% !important;
 }
 
-.botao-buscar .row{
+.row > .botao-buscar{
 justify-content: center;
 }
 
@@ -61,5 +61,4 @@ border-color: #e9ecef ;
 border-radius: 8px;
 padding: 2px;
 }
-
 

@@ -49,9 +49,6 @@ def todos_instalados():
     except:
         with open('.\ExceptError.txt','w') as arquivo:
             arquivo.write(traceback.format_exc())
-
-        webbrowser.open('https://www.microsoft.com/store/productId/9NBLGGH4NNS1')
-        ag.alert('Verifique se o winget está disponível em sua máquina, caso esteja, abra novamente o executável', title='ExceptError --line 24')
        
     return todos_instalados
 
